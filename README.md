@@ -7,8 +7,8 @@
 
 ## Lab Reports
 
-1. [Lab 01 - Linux Commands](./Lab-01-Linux-Commands/)
-2. [Lab 02 - Process Management](./Lab-02-Process-Management/) _(Coming Soon)_
+1. [Lab 1 - Linux Commands](./Lab-1-Linux-Commands/)
+2. [Lab 2 - Process Management](./Lab-2-Process-Management/) _(Coming Soon)_
 
 ---
 *Submitted to: Rabina Shrestha*
