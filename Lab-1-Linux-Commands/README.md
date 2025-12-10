@@ -1,11 +1,5 @@
 # LINUX COMMANDS LAB REPORT
 
-**Course:** Operating Systems Lab  
-**Date:** December 10, 2025  
-**Submitted by:** Salina  
-**Roll No:** 34
-
----
 
 ## INTRODUCTION
 
@@ -779,7 +773,6 @@ journalctl --since today
 **Explanation:**  
 The `lsof` (List Open Files) command displays all files currently opened by processes. In Linux, "everything is a file" including regular files, directories, network sockets, pipes, and devices. This command is invaluable for troubleshooting - finding which process is using a file, identifying network connections, and diagnosing "file in use" errors. Use `lsof filename` to see which processes have a file open, `lsof -u username` for files opened by a user, `lsof -i` for network connections, and `lsof -p PID` for files opened by a specific process.
 
-**# LINUX COMMANDS LAB REPORT
 
 **Command:**
 ```bash
@@ -1159,5 +1152,24 @@ Mastering these commands provides hands-on experience with operating system inte
 ---
 
 
+## REFERENCES
 
+1. Silberschatz, Abraham, Peter B. Galvin, and Greg Gagne. *Operating System Concepts, 10th Edition.* Wiley, 2018.
+2. Linux man pages - Accessed via `man` command on local system
+3. The Linux Documentation Project. Available at: https://tldp.org
+4. GNU Coreutils Documentation. Available at: https://www.gnu.org/software/coreutils/
+5. systemd Documentation. Available at: https://systemd.io
+
+---
+
+**Laboratory Report Submitted by:**  
+Name: Salina Nakarmi  
+Roll No: 34  
+Course: Operating Systems Lab  
+Instructor: Rabina Shrestha  
+Date: December 10, 2025
+
+---
+
+*End of Lab Report*
 
