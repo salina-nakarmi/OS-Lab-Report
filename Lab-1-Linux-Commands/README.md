@@ -779,4 +779,408 @@ journalctl --since today
 **Explanation:**  
 The `lsof` (List Open Files) command displays all files currently opened by processes. In Linux, "everything is a file" including regular files, directories, network sockets, pipes, and devices. This command is invaluable for troubleshooting - finding which process is using a file, identifying network connections, and diagnosing "file in use" errors. Use `lsof filename` to see which processes have a file open, `lsof -u username` for files opened by a user, `lsof -i` for network connections, and `lsof -p PID` for files opened by a specific process.
 
-**
+**# LINUX COMMANDS LAB REPORT
+
+**Command:**
+```bash
+lsof
+lsof /var/log/syslog
+lsof -u username
+lsof -i :80
+lsof -p 1234
+```
+
+**Screenshot:**  
+![lsof command output](./screenshots/43-lsof.png)
+
+---
+
+### 44. history (Command History)
+
+**Explanation:**  
+The `history` command displays previously executed commands stored in the shell history file (~/.bash_history for bash). Each command is numbered. Use `!number` to re-execute a specific command, `!-n` for the nth previous command, `!!` for the last command, and `!string` for the most recent command starting with string. Press Ctrl+R for reverse search through history. Use `history -c` to clear history. This is invaluable for repeating complex commands and auditing user actions.
+
+**Command:**
+```bash
+history
+history 20
+!42
+!!
+```
+
+**Screenshot:**  
+![history command output](./screenshots/44-history.png)
+
+---
+
+### 45. man (Manual Pages)
+
+**Explanation:**  
+The `man` command displays the manual (documentation) for commands and system calls. Manual pages are organized into sections: 1 (user commands), 2 (system calls), 3 (library functions), 5 (file formats), 8 (admin commands). Navigate with arrow keys, search with `/pattern`, quit with `q`. Use `man -k keyword` to search manual descriptions. Understanding man pages is crucial for learning command options and usage. For example, `man ls` explains all ls options in detail.
+
+**Command:**
+```bash
+man ls
+man 2 fork
+man -k process
+```
+
+**Screenshot:**  
+![man command interface](./screenshots/45-man.png)
+
+---
+
+## CATEGORY 10: SERVICE AND SYSTEM MANAGEMENT
+
+### 46. systemctl (System Control - Service Management)
+
+**Explanation:**  
+The `systemctl` command controls the systemd system and service manager, used in most modern Linux distributions. It manages system services (daemons), showing status, starting, stopping, enabling (auto-start at boot), and disabling services. Examples: `systemctl status apache2` checks Apache status, `sudo systemctl start service-name` starts a service, `sudo systemctl enable service-name` enables auto-start. Use `systemctl list-units --type=service` to see all services.
+
+**Command:**
+```bash
+systemctl status ssh
+sudo systemctl start apache2
+sudo systemctl stop apache2
+systemctl list-units --type=service
+```
+
+**Screenshot:**  
+![systemctl command output](./screenshots/46-systemctl.png)
+
+---
+
+### 47. sudo (Execute as Superuser)
+
+**Explanation:**  
+The `sudo` (Superuser Do) command executes commands with elevated privileges, typically as root. It's safer than logging in as root because it requires password authentication, logs all actions, and can be configured to allow only specific commands. Use `sudo command` to run a command as root. Configuration in `/etc/sudoers` controls who can use sudo and what they can do. Users must be in the sudo/wheel group.
+
+**Command:**
+```bash
+sudo apt update
+sudo systemctl restart apache2
+sudo -i
+sudo -u username command
+```
+
+**Screenshot:**  
+![sudo command output](./screenshots/47-sudo.png)
+
+---
+
+### 48. su (Switch User)
+
+**Explanation:**  
+The `su` (Switch User) command switches to another user account, defaulting to root if no username specified. Use `su - username` for full login (loads user's environment), or `su username` for simple switch. Use `su -` to become root with root's environment. You need the target user's password unless you're already root. Use `exit` to return to your original user.
+
+**Command:**
+```bash
+su -
+su - username
+su username
+exit
+```
+
+**Screenshot:**  
+![su command output](./screenshots/48-su.png)
+
+---
+
+## CATEGORY 11: NETWORKING COMMANDS
+
+### 49. ping (Network Connectivity Test)
+
+**Explanation:**  
+The `ping` command tests network connectivity between your system and a remote host by sending ICMP echo request packets. It measures round-trip time (RTT) and packet loss, helping diagnose network issues. Use `ping hostname` or `ping IP_address` to test connectivity. Press Ctrl+C to stop. Use `ping -c 4` to send only 4 packets, `ping -i 2` to set 2-second interval between packets.
+
+**Command:**
+```bash
+ping google.com
+ping -c 4 8.8.8.8
+ping -i 2 192.168.1.1
+```
+
+**Screenshot:**  
+![ping command output](./screenshots/49-ping.png)
+
+---
+
+### 50. ifconfig (Interface Configuration)
+
+**Explanation:**  
+The `ifconfig` command displays and configures network interface parameters. It shows IP addresses, MAC addresses, network masks, broadcast addresses, and interface statistics (packets transmitted/received, errors, collisions). Use `ifconfig` to view all active interfaces, `ifconfig -a` for all interfaces including inactive ones. On modern systems, `ip` command is preferred, but ifconfig remains widely used.
+
+**Command:**
+```bash
+ifconfig
+ifconfig -a
+ifconfig eth0
+```
+
+**Screenshot:**  
+![ifconfig command output](./screenshots/50-ifconfig.png)
+
+---
+
+### 51. ip addr (IP Address Management)
+
+**Explanation:**  
+The `ip addr` command is the modern replacement for `ifconfig`, part of the iproute2 package. It displays and manipulates network interface addresses and properties. Use `ip addr show` to view all interfaces with IP addresses, `ip addr show dev eth0` for specific interface, and `sudo ip addr add 192.168.1.100/24 dev eth0` to add an IP address. The command provides more detailed information than ifconfig including IPv6 addresses, scope, and interface state.
+
+**Command:**
+```bash
+ip addr
+ip addr show
+ip addr show dev eth0
+ip link show
+```
+
+**Screenshot:**  
+![ip addr command output](./screenshots/51-ip-addr.png)
+
+---
+
+### 52. netstat (Network Statistics)
+
+**Explanation:**  
+The `netstat` command displays network connections, routing tables, interface statistics, and protocol statistics. It shows active TCP/UDP connections, listening ports, and network interface information. Use `netstat -tuln` to show all listening TCP/UDP ports with numeric addresses, `netstat -r` for routing table, and `netstat -i` for interface statistics. On some modern systems, `ss` command is the replacement.
+
+**Command:**
+```bash
+netstat -tuln
+netstat -r
+netstat -i
+netstat -antp
+```
+
+**Screenshot:**  
+![netstat command output](./screenshots/52-netstat.png)
+
+---
+
+### 53. ssh (Secure Shell - Remote Login)
+
+**Explanation:**  
+The `ssh` (Secure Shell) command establishes encrypted remote connections to other systems, allowing secure command-line access. It's the standard for remote system administration. Use `ssh username@hostname` to connect, `ssh -p 2222 user@host` for non-standard port, and `ssh -i keyfile user@host` for key-based authentication. All communication is encrypted.
+
+**Command:**
+```bash
+ssh username@192.168.1.100
+ssh -p 2222 user@example.com
+ssh user@host 'ls -la'
+ssh -i ~/.ssh/id_rsa user@host
+```
+
+**Screenshot:**  
+![ssh command output](./screenshots/53-ssh.png)
+
+---
+
+### 54. scp (Secure Copy)
+
+**Explanation:**  
+The `scp` command securely copies files between local and remote systems using SSH protocol. It encrypts both authentication credentials and transferred data. Use `scp localfile user@host:/remote/path/` to copy to remote system, `scp user@host:/remote/file /local/path/` to copy from remote, and `scp -r directory/ user@host:/path/` for recursive directory copy.
+
+**Command:**
+```bash
+scp file.txt user@192.168.1.100:/home/user/
+scp user@host:/remote/file.txt /local/directory/
+scp -r folder/ user@host:/destination/
+scp -P 2222 file.txt user@host:/path/
+```
+
+**Screenshot:**  
+![scp command output](./screenshots/54-scp.png)
+
+---
+
+### 55. curl (Transfer Data with URLs)
+
+**Explanation:**  
+The `curl` command transfers data to or from servers using various protocols (HTTP, HTTPS, FTP, etc.). Unlike wget, curl displays output to stdout by default. Use `curl URL` to fetch content, `curl -O URL` to save with original filename, `curl -I URL` to fetch only HTTP headers, and `curl -X POST -d "data" URL` for POST requests.
+
+**Command:**
+```bash
+curl https://api.example.com/data
+curl -O https://example.com/file.zip
+curl -I https://google.com
+curl -X POST -d "param=value" https://api.example.com
+```
+
+**Screenshot:**  
+![curl command output](./screenshots/55-curl.png)
+
+---
+
+### 56. wget (Download Files from Web)
+
+**Explanation:**  
+The `wget` command downloads files from the internet using HTTP, HTTPS, or FTP protocols. It supports resuming interrupted downloads, recursive downloads, and background operation. Use `wget URL` to download a file, `wget -c URL` to resume interrupted download, `wget -r URL` for recursive download of entire websites, and `wget -b URL` for background download.
+
+**Command:**
+```bash
+wget https://example.com/file.zip
+wget -c https://example.com/largefile.iso
+wget -O custom_name.pdf https://example.com/document.pdf
+```
+
+**Screenshot:**  
+![wget command output](./screenshots/56-wget.png)
+
+---
+
+## CATEGORY 12: FILE COMPRESSION AND ARCHIVING
+
+### 57. tar (Archive Files)
+
+**Explanation:**  
+The `tar` (Tape Archive) command creates, extracts, and manages archive files. It bundles multiple files/directories into a single file, optionally with compression. Use `tar -czf archive.tar.gz directory/` to create compressed archive, `tar -xzf archive.tar.gz` to extract, `tar -tzf archive.tar.gz` to list contents. Options: -c (create), -x (extract), -t (list), -z (gzip), -j (bzip2), -v (verbose), -f (filename).
+
+**Command:**
+```bash
+tar -czf backup.tar.gz /home/user/Documents/
+tar -xzf archive.tar.gz
+tar -tzf archive.tar.gz
+tar -xzf archive.tar.gz -C /destination/path/
+```
+
+**Screenshot:**  
+![tar command output](./screenshots/57-tar.png)
+
+---
+
+### 58. gzip/gunzip (Compress/Decompress Files)
+
+**Explanation:**  
+The `gzip` command compresses files using the GNU zip algorithm, reducing file size. It replaces the original file with a compressed version having .gz extension. Use `gzip filename` to compress, `gunzip filename.gz` or `gzip -d filename.gz` to decompress. The `-k` option keeps the original file. Compression level ranges from 1 (fastest) to 9 (best compression).
+
+**Command:**
+```bash
+gzip file.txt
+gunzip file.txt.gz
+gzip -k file.txt
+gzip -9 largefile.log
+```
+
+**Screenshot:**  
+![gzip command output](./screenshots/58-gzip.png)
+
+---
+
+### 59. zip/unzip (Compress/Extract ZIP Archives)
+
+**Explanation:**  
+The `zip` and `unzip` commands create and extract ZIP archives, the most common cross-platform compression format. Use `zip archive.zip file1 file2` to create archive, `zip -r archive.zip directory/` for recursive directory compression, and `unzip archive.zip` to extract. Use `unzip -l archive.zip` to list contents.
+
+**Command:**
+```bash
+zip archive.zip file1.txt file2.txt
+zip -r project.zip project_folder/
+unzip archive.zip
+unzip -l archive.zip
+```
+
+**Screenshot:**  
+![zip/unzip command output](./screenshots/59-zip.png)
+
+---
+
+## CATEGORY 13: TEXT PROCESSING AND SEARCH
+
+### 60. grep (Search Text Patterns)
+
+**Explanation:**  
+The `grep` (Global Regular Expression Print) command searches for text patterns within files or input streams. It's powerful for filtering output, searching logs, and finding specific content. Use `grep -i` for case-insensitive search, `grep -r` for recursive directory search, `grep -n` to show line numbers, and `grep -v` to invert match. Commonly used with pipes to filter other command outputs.
+
+**Command:**
+```bash
+grep "pattern" filename.txt
+grep -i "error" logfile.log
+ps aux | grep firefox
+grep -r "TODO" /home/user/project/
+```
+
+**Screenshot:**  
+![grep command output](./screenshots/60-grep.png)
+
+---
+
+## CONCLUSION
+
+This lab report covered **60 essential Linux commands** organized into **13 categories**, with focus on operating system concepts including process management, memory management, file systems, networking, and system administration. These commands provide practical understanding of OS principles studied in theory:
+
+### Key Learning Outcomes:
+
+**Process Management (Category 7):** Commands like ps, top, kill, and job control demonstrate CPU scheduling, process states, and inter-process communication. Understanding process hierarchies through pstree and managing background jobs provides insight into how operating systems handle concurrent execution.
+
+**Memory Management (Category 8):** The free and vmstat commands reveal physical and virtual memory usage, paging, and buffer management. These tools help visualize concepts like memory allocation, swapping, and the difference between used and available memory.
+
+**File Systems (Categories 1-3, 4):** Navigation, permissions, and storage commands illustrate inode structures, access control lists, and disk management. The hierarchical file system structure becomes clear through practical navigation and file operations.
+
+**Networking (Category 11):** Network commands show TCP/IP stack implementation, socket connections, and protocol operations. Tools like netstat, ping, and ssh demonstrate how processes communicate over networks and how the OS manages network interfaces.
+
+**System Administration (Categories 10, 9):** Service management with systemctl and monitoring through journalctl demonstrate OS initialization, daemon processes, and system calls. These commands reveal how modern Linux systems use systemd for service orchestration.
+
+### Command Category Summary:
+1. **File System Navigation** - 5 commands (pwd, ls variants, cd)
+2. **File and Directory Operations** - 9 commands (mkdir, rm, cp, mv, touch, find, locate)
+3. **File Viewing and Editing** - 4 commands (cat, nano, vi/vim, echo)
+4. **File Permissions and Ownership** - 2 commands (chmod, chown)
+5. **System Information** - 5 commands (uname, whoami, id, which, whereis)
+6. **Disk and Storage Management** - 2 commands (df, du)
+7. **Process Management** - 11 commands (ps variants, top, htop, kill, pkill, pstree, jobs, bg, fg, nohup)
+8. **Memory Management** - 2 commands (free, vmstat)
+9. **System Monitoring and Logs** - 5 commands (dmesg, journalctl, lsof, history, man)
+10. **Service and System Management** - 3 commands (systemctl, sudo, su)
+11. **Networking Commands** - 8 commands (ping, ifconfig, ip addr, netstat, ssh, scp, curl, wget)
+12. **File Compression and Archiving** - 3 commands (tar, gzip/gunzip, zip/unzip)
+13. **Text Processing and Search** - 1 command (grep)
+
+### Practical Applications:
+
+The commands learned in this lab have direct applications in:
+- **System Administration:** Managing servers, monitoring performance, troubleshooting issues
+- **Software Development:** Navigating codebases, managing processes, using version control
+- **DevOps and Cloud Computing:** Automating deployments, managing remote servers, monitoring applications
+- **Cybersecurity:** Analyzing logs, monitoring network connections, managing file permissions
+- **Academic Research:** Understanding OS internals, conducting performance experiments, analyzing system behavior
+
+### Connection to OS Theory:
+
+These practical commands reinforce theoretical concepts from Operating System Concepts (Silberschatz et al.):
+- **Chapter 3 (Processes):** ps, top, kill commands show process control blocks and process scheduling
+- **Chapter 9 (Virtual Memory):** free, vmstat demonstrate paging and memory management
+- **Chapter 11 (File Systems):** File operations show inode implementation and directory structures
+- **Chapter 16 (Security):** chmod, chown implement access control mechanisms
+- **Chapter 17 (Networks):** Network commands demonstrate distributed systems concepts
+
+Mastering these commands provides hands-on experience with operating system internals and prepares students for advanced topics in system programming, kernel development, and understanding real-world OS implementations in production environments.
+
+---
+
+## REFERENCES
+
+1. Silberschatz, Abraham, Peter B. Galvin, and Greg Gagne. *Operating System Concepts, 10th Edition.* Wiley, 2018.
+2. Linux man pages - Accessed via `man` command on local system
+3. The Linux Documentation Project. Available at: https://tldp.org
+4. GNU Coreutils Documentation. Available at: https://www.gnu.org/software/coreutils/
+5. systemd Documentation. Available at: https://systemd.io
+
+---
+
+**Laboratory Report Submitted by:**  
+Name: [Your Name]  
+Roll No: [Your Roll Number]  
+Course: Operating Systems Lab  
+Instructor: [Instructor Name]  
+Date: December 9, 2025
+
+---
+
+*End of Lab Report*Course:** Operating Systems Lab  
+**Date:** December 9, 2025  
+**Submitted by:** [Your Name]  
+**Roll No:** [Your Roll Number]
+
+---
+
