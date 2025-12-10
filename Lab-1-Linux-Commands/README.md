@@ -1022,7 +1022,7 @@ wget -O custom_name.pdf https://example.com/document.pdf
 
 ---
 
-## CATEGORY 12: FILE COMPRESSION AND ARCHIVING
+<!-- ## CATEGORY 12: FILE COMPRESSION AND ARCHIVING
 
 ### 57. tar (Archive Files)
 
@@ -1076,11 +1076,11 @@ unzip -l archive.zip
 **Screenshot:**  
 ![zip/unzip command output](./screenshots/59-zip.png)
 
----
+--- -->
 
-## CATEGORY 13: TEXT PROCESSING AND SEARCH
+## CATEGORY 12: TEXT PROCESSING AND SEARCH
 
-### 60. grep (Search Text Patterns)
+### 57. grep (Search Text Patterns)
 
 **Explanation:**  
 The `grep` (Global Regular Expression Print) command searches for text patterns within files or input streams. It's powerful for filtering output, searching logs, and finding specific content. Use `grep -i` for case-insensitive search, `grep -r` for recursive directory search, `grep -n` to show line numbers, and `grep -v` to invert match. Commonly used with pipes to filter other command outputs.
@@ -1100,7 +1100,7 @@ grep -r "TODO" /home/user/project/
 
 ## CONCLUSION
 
-This lab report covered **60 essential Linux commands** organized into **13 categories**, with focus on operating system concepts including process management, memory management, file systems, networking, and system administration. These commands provide practical understanding of OS principles studied in theory:
+This lab report covered **57 essential Linux commands** organized into **12 categories**, with focus on operating system concepts including process management, memory management, file systems, networking, and system administration. These commands provide practical understanding of OS principles studied in theory:
 
 ### Key Learning Outcomes:
 
@@ -1126,8 +1126,8 @@ This lab report covered **60 essential Linux commands** organized into **13 cate
 9. **System Monitoring and Logs** - 5 commands (dmesg, journalctl, lsof, history, man)
 10. **Service and System Management** - 3 commands (systemctl, sudo, su)
 11. **Networking Commands** - 8 commands (ping, ifconfig, ip addr, netstat, ssh, scp, curl, wget)
-12. **File Compression and Archiving** - 3 commands (tar, gzip/gunzip, zip/unzip)
-13. **Text Processing and Search** - 1 command (grep)
+<!-- 12. **File Compression and Archiving** - 3 commands (tar, gzip/gunzip, zip/unzip) -->
+12. **Text Processing and Search** - 1 command (grep)
 
 ### Practical Applications:
 
@@ -1138,7 +1138,7 @@ The commands learned in this lab have direct applications in:
 - **Cybersecurity:** Analyzing logs, monitoring network connections, managing file permissions
 - **Academic Research:** Understanding OS internals, conducting performance experiments, analyzing system behavior
 
-### Connection to OS Theory:
+<!-- ### Connection to OS Theory:
 
 These practical commands reinforce theoretical concepts from Operating System Concepts (Silberschatz et al.):
 - **Chapter 3 (Processes):** ps, top, kill commands show process control blocks and process scheduling
@@ -1160,7 +1160,7 @@ Mastering these commands provides hands-on experience with operating system inte
 4. GNU Coreutils Documentation. Available at: https://www.gnu.org/software/coreutils/
 5. systemd Documentation. Available at: https://systemd.io
 
----
+--- -->
 
 **Laboratory Report Submitted by:**  
 Name: Salina Nakarmi  
