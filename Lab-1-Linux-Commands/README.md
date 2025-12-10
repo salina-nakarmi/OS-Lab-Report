@@ -1,9 +1,9 @@
 # LINUX COMMANDS LAB REPORT
 
 **Course:** Operating Systems Lab  
-**Date:** December 9, 2025  
-**Submitted by:** [Your Name]  
-**Roll No:** [Your Roll Number]
+**Date:** December 10, 2025  
+**Submitted by:** Salina  
+**Roll No:** 34
 
 ---
 
@@ -1158,29 +1158,6 @@ Mastering these commands provides hands-on experience with operating system inte
 
 ---
 
-## REFERENCES
 
-1. Silberschatz, Abraham, Peter B. Galvin, and Greg Gagne. *Operating System Concepts, 10th Edition.* Wiley, 2018.
-2. Linux man pages - Accessed via `man` command on local system
-3. The Linux Documentation Project. Available at: https://tldp.org
-4. GNU Coreutils Documentation. Available at: https://www.gnu.org/software/coreutils/
-5. systemd Documentation. Available at: https://systemd.io
 
----
-
-**Laboratory Report Submitted by:**  
-Name: [Your Name]  
-Roll No: [Your Roll Number]  
-Course: Operating Systems Lab  
-Instructor: [Instructor Name]  
-Date: December 9, 2025
-
----
-
-*End of Lab Report*Course:** Operating Systems Lab  
-**Date:** December 9, 2025  
-**Submitted by:** [Your Name]  
-**Roll No:** [Your Roll Number]
-
----
 
