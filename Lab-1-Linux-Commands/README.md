@@ -1094,7 +1094,7 @@ grep -r "TODO" /home/user/project/
 ```
 
 **Screenshot:**  
-![grep command output](./screenshots/60-grep.png)
+![grep command output](./screenshots/57-grep.png)
 
 ---
 
