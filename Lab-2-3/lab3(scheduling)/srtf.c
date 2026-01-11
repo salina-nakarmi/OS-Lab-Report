@@ -1,104 +1,60 @@
 #include <stdio.h>
 
 int main() {
-    int n, i, j, time = 0, quantum, remain;
+    int n, i, time = 0, smallest, count = 0, end;
     int at[20], bt[20], rt[20], wt[20], tat[20];
     int total_wt = 0, total_tat = 0;
     int gantt[100], gantt_time[100], gantt_count = 0;
-    int queue[20], front = 0, rear = 0;
-    int visited[20] = {0}, completed[20] = {0};
     float avg_wt, avg_tat;
     
     printf("Enter number of processes: ");
     scanf("%d", &n);
-    remain = n;
     
     for (i = 0; i < n; i++) {
         printf("Enter Arrival Time for Process %d: ", i + 1);
         scanf("%d", &at[i]);
         printf("Enter Burst Time for Process %d: ", i + 1);
         scanf("%d", &bt[i]);
-        rt[i] = bt[i]; // Remaining time
+        rt[i] = bt[i]; // Remaining time initially equals burst time
     }
     
-    printf("Enter Time Quantum: ");
-    scanf("%d", &quantum);
+    // Find the process with maximum burst time to set end time
+    rt[19] = 9999; // A large value for comparison
     
-    // Add first arrived process to queue
-    for (i = 0; i < n; i++) {
-        if (at[i] == 0) {
-            queue[rear++] = i;
-            visited[i] = 1;
-        }
-    }
+    int prev_process = -1; // Track previous process for Gantt chart
     
-    printf("\n======================================");
-    printf("\n      ROUND ROBIN SCHEDULING");
-    printf("\n======================================\n");
-    printf("\nReady Queue Execution:\n");
-    
-    while (remain > 0) {
-        if (front == rear) {
-            // No process in queue, advance time
-            time++;
-            // Check for newly arrived processes
-            for (i = 0; i < n; i++) {
-                if (at[i] == time && visited[i] == 0) {
-                    queue[rear++] = i;
-                    visited[i] = 1;
-                }
+    for (time = 0; count != n; time++) {
+        smallest = 19;
+        
+        // Find process with shortest remaining time
+        for (i = 0; i < n; i++) {
+            if (at[i] <= time && rt[i] < rt[smallest] && rt[i] > 0) {
+                smallest = i;
             }
-            continue;
         }
         
-        i = queue[front++];
+        // If a different process is selected, add to Gantt chart
+        if (smallest != 19 && smallest != prev_process) {
+            gantt[gantt_count] = smallest;
+            gantt_time[gantt_count] = time;
+            gantt_count++;
+            prev_process = smallest;
+        }
         
-        printf("Time %d: Process P%d enters CPU (Remaining: %d)\n", time, i + 1, rt[i]);
-        
-        // Record for Gantt chart
-        gantt[gantt_count] = i;
-        gantt_time[gantt_count] = time;
-        gantt_count++;
-        
-        if (rt[i] <= quantum && rt[i] > 0) {
-            // Process will complete
-            time += rt[i];
-            rt[i] = 0;
-            completed[i] = 1;
-            remain--;
+        // Execute the process for 1 time unit
+        if (smallest != 19) {
+            rt[smallest]--;
             
-            // Calculate times
-            tat[i] = time - at[i];
-            wt[i] = tat[i] - bt[i];
-            total_wt += wt[i];
-            total_tat += tat[i];
-            
-            printf("         P%d completed at time %d\n", i + 1, time);
-            
-            // Add newly arrived processes to queue
-            for (j = 0; j < n; j++) {
-                if (at[j] <= time && visited[j] == 0 && completed[j] == 0) {
-                    queue[rear++] = j;
-                    visited[j] = 1;
-                }
+            // If process completes
+            if (rt[smallest] == 0) {
+                count++;
+                end = time + 1;
+                wt[smallest] = end - bt[smallest] - at[smallest];
+                tat[smallest] = end - at[smallest];
+                
+                total_wt += wt[smallest];
+                total_tat += tat[smallest];
             }
-        } else if (rt[i] > 0) {
-            // Process needs more time
-            time += quantum;
-            rt[i] -= quantum;
-            
-            printf("         P%d preempted at time %d (Remaining: %d)\n", i + 1, time, rt[i]);
-            
-            // Add newly arrived processes to queue first
-            for (j = 0; j < n; j++) {
-                if (at[j] <= time && visited[j] == 0 && completed[j] == 0) {
-                    queue[rear++] = j;
-                    visited[j] = 1;
-                }
-            }
-            
-            // Add current process back to queue
-            queue[rear++] = i;
         }
     }
     
@@ -106,10 +62,7 @@ int main() {
     gantt_time[gantt_count] = time;
     
     // Display process details
-    printf("\n======================================");
-    printf("\n         PROCESS DETAILS");
-    printf("\n======================================\n");
-    printf("Process\tArrival\tBurst\tWaiting\tTurnaround\n");
+    printf("\nProcess\tArrival\tBurst\tWaiting\tTurnaround\n");
     for (i = 0; i < n; i++) {
         printf("P%d\t%d\t%d\t%d\t%d\n", i + 1, at[i], bt[i], wt[i], tat[i]);
     }
