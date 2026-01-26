@@ -9,6 +9,7 @@
 
 1. [Lab 1 - Linux Commands](./Lab-1-Linux-Commands/)
 2. [Lab 2-3 - Combined](./Lab-2-3/os_lab_2_3.pdf)
+3. [Lab 4 - file permissions](./Lab-4/os_lab_4.pdf)
 
 ## Code
 1. [Lab 2 (fork)](./Lab-2-3/lab2(fork)/)
